@@ -1,0 +1,40 @@
+{
+    "siteInformation": {
+        "processPort": 3000,
+        "domain": "http://localhost:3000",
+        "ownerId": "861546992478846996",
+        "useEmails": false,
+        "fromEmail": "store@example.com"
+    },
+
+    "tokens": {
+        "discordBotToken": "MTA1MTg3MzczMTgzMzc3MDA2OA.GefbJ0.dQ6oiDU5IiyRNApldoq_T3y4rvl1hCPz5KTm2g",
+        "oAuth2ClientId": "1051873731833770068",
+        "oAuth2ClientToken": "LDJM-oSWNqJ4-FvPMypA5y4NNmkWTgMd",
+        "paypalClientId": "PAYPAL_CLIENT_ID",
+        "paypalClientSecret": "PAYPAL_CLIENT_SECRET",
+        "sendGridToken": "SENDGRID_MAIL_TOKEN",
+        "faxesLicenseKey": "FAXES_LICENSE_KEY"
+    },
+
+    "SQLInformation": {
+        "host": "45.145.226.255",
+        "username": "u635_34D0fQvY0i",
+        "password": "Jr+0rI2lAv4!1iKv86Z30^qq",
+        "database": "s635_Database"
+    },
+
+    "discordConfig": {
+        "useDiscordChannelLogs": false,
+        "botStatus": "idle",
+        "loggingChannelId": "",
+        "guildId": "",
+        "autoJoinUsers": false,
+        "useDiscordCommands": true,
+        "commandPrefix": "."
+    },
+
+    "redirects": [
+        {"name": "discord", "link": "http://faxes.zone"}
+    ]
+}
