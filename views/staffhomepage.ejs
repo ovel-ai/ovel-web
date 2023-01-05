@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Home Manager - <%= siteInfo.sitename %></title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+		<meta name="description" content="<%= siteInfo.sitedesc %>" />
+		<meta property="og:site_name" content="<%= siteInfo.sitename %>" />
+		<meta property="og:title" content="Home Manager" />
+		<meta property="og:type" content="website" />
+		<meta property="og:description" content="<%= siteInfo.sitedesc %>" />
+		<meta name="twitter:card" content="summary">
+		<meta name="theme-color" content="<%= siteInfo.themecolor %>">
+		<meta property="og:image" content="<%= siteInfo.siteLogo %>">
+		<link href="https://fonts.googleapis.com/css?family=Exo:500,500italic,700,700italic,400,400italic,600,600italic,900,900italic" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="/assets/main.css" />
+		<link rel="icon" href="<%= siteInfo.siteLogo %>" />
+		<style>
+			#icons01 a:hover svg {
+				fill: <%= siteInfo.themecolor %> !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+					<header id="header">
+						<div id="container01" class="container columns full screen">
+							<div class="wrapper">
+								<div class="inner">
+									<div>
+										<a href="/">
+											<div id="image01" class="image">
+												<img src="<%= siteInfo.siteLogo %>" alt="" />
+											</div>
+										</a>
+									</div>
+									<div>
+										<ul id="buttons03" class="buttons">
+											<% var splittedDetails = siteInfo.header.split("[||[]||]");
+											splittedDetails.forEach(function(element) { 
+												if(element.length > 3) {
+													let thisDetail = element.split("[||]"); %>
+													<li>
+														<a href="<%= thisDetail[1] %>" class="button n01"><%= thisDetail[0] %></a>
+													</li>
+												<% }
+											}); %>
+										</ul>
+									</div>
+									<div>
+										<ul id="buttons01" class="buttons">
+											<% if(discordInfo.loggedIn) { %>
+												<div class="dropdown">
+													<li>
+														<a href="/user/<%= discordInfo.id %>" class="button n01"><svg><use xlink:href="/assets/icons.svg#discord"></use></svg><span class="label"><%= discordInfo.username %>#<%= discordInfo.discriminator %></span></a>
+													</li>
+													<div class="dropdown-content">
+														<% if(siteInfo.giftcardsEnabled) { %><a href="/giftcards">Gift Cards</a> <% } %>
+														<a href="/logout">Logout</a>
+													</div>
+												</div>
+												<li>
+													<a href="/cart" class="button n02"><svg><use xlink:href="/assets/icons.svg#cart"></use></svg><span class="label">Cart <% if(discordInfo.cart.length > 0) { %>(<%= discordInfo.cart.length %>)<% } %></span></a>
+												</li>
+												<% if(discordInfo.permType < 3) { %>
+													<li>
+														<a href="/staff" class="button n03"><svg><use xlink:href="/assets/icons.svg#key"></use></svg><span class="label">Staff</span></a>
+													</li>
+											<%	} 
+											} else { %>
+												<li>
+													<a href="/login" class="button n01"><svg><use xlink:href="/assets/icons.svg#discord"></use></svg><span class="label">Login</span></a>
+												</li>
+											<% } %>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<% if(siteInfo.banner) { %>
+							<div id="container02" class="container default">
+								<div class="wrapper">
+									<div class="inner">
+										<p id="text08">Notification</p>
+										<p id="text10"><%= siteInfo.banner %></p>
+									</div>
+								</div>
+							</div>
+						<% } %>
+					</header>
+
+					<section id="homesettings-section">
+						<p id="text16">Admin Panel - Home Page</p>
+						<ul id="buttons12" class="buttons">
+							<li>
+								<a href="/staff/settings" class="button n01">Site Settings</a>
+							</li><li>
+								<a href="/staff/insights" class="button n02">Insights</a>
+							</li><li>
+								<a href="/staff/store" class="button n03">Store</a>
+							</li><li>
+								<a href="/staff/gallery" class="button n04">Gallery</a>
+							</li><li>
+								<a href="/staff/homepage" class="button n05">Home Page</a>
+							</li><li>
+								<a href="/staff/teampage" class="button n06">Team Page</a>
+							</li><li>
+								<a href="/staff/tospage" class="button n07">ToS Page</a>
+							</li><li>
+								<a href="/staff/partners" class="button n09">Partners</a>
+							</li><li>
+								<a href="/staff/users" class="button n08">User Manager</a>
+							</li><li>
+								<a href="/staff/owneditems" class="button n08">Owned Items</a>
+							</li><li>
+								<a href="/staff/admins" class="button n09">Staff Manager</a>
+							</li>
+						</ul>
+
+						<% function converter(val) {
+							if(val) {
+								return 'Enabled'
+							} else {
+								return 'Disabled'
+							}
+						} %>
+						<div id="container20" class="container columns">
+							<div class="wrapper">
+								<div class="inner">
+									<div>
+										<p id="text40">Home Page Settings</p>
+										<form enctype="multipart/form-data" id="form16" method="post" action="/backend/sitesettings/update/homepage" autocomplete="off">
+											<div class="inner">
+												<div class="field">
+													<label for="form16-search-bar">Search bar:</label>
+													<select name="searchbar" id="form16-search-bar" required>
+														<option value="<%= siteInfo.homeSearchEnabled %>">Current: <%= converter(siteInfo.homeSearchEnabled) %></option>
+														<option value="true">Enabled</option>
+														<option value="false">Disabled</option>
+													</select>
+												</div>
+												<div class="field">
+													<label for="form16-slideshow">Slideshow</label>
+													<select name="slideshow" id="form16-slideshow" required>
+														<option value="<%= siteInfo.homeSlideshowEnabled %>">Current: <%= converter(siteInfo.homeSlideshowEnabled) %></option>
+														<option value="true">Enabled</option>
+														<option value="false">Disabled</option>
+													</select>
+												</div>
+												<div class="field">
+													<label for="form16-slideshow">Reviews</label>
+													<select name="reviews" id="form16-slideshow" required>
+														<option value="<%= siteInfo.homeReviewsEnabled %>">Current: <%= converter(siteInfo.homeReviewsEnabled) %></option>
+														<option value="true">Enabled</option>
+														<option value="false">Disabled</option>
+													</select>
+												</div>
+												<div class="field">
+													<label for="form16-featitem">Featured Item</label>
+													<select name="featuredItem" id="form16-featitem">
+														<% if(featItem) { %>
+															<option value="<%= featItem.id %>">Current: <%= featItem.title %></option>
+														<% } %>
+														<option value="">-- NONE (disable function)--</option>
+														<% if(storeItems) {
+															storeItems.forEach(function(element, i) { %>
+																<option value="<%= element.id %>"><%= element.title %></option>
+														<% 	}); 
+														} %>
+													</select>
+												</div>
+												<div class="field">
+													<label for="form16-slideshow-images-comma-separated">Slideshow Images (comma separated):</label>
+													<textarea data-gramm_editor="false" name="slideshowimages" id="form16-slideshow-images-comma-separated" placeholder=""><%= siteInfo.slideshowImages %></textarea>
+												</div>
+												<div class="actions">
+													<button type="submit">Save Settings</button>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<footer id="footer">
+						<ul id="icons01" class="icons">
+							<% if(siteInfo.socialEmail) { %>
+							<li>
+								<a class="n01" href="mailto:<%= siteInfo.socialEmail %>">
+									<svg><use xlink:href="/assets/icons.svg#email"></use></svg>
+									<span class="label">Email</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialDiscord) { %>
+							<li>
+								<a class="n02" href="<%= siteInfo.socialDiscord %>">
+									<svg><use xlink:href="/assets/icons.svg#discord"></use></svg>
+									<span class="label">Discord</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialTwitter) { %>
+							<li>
+								<a class="n03" href="<%= siteInfo.socialTwitter %>">
+									<svg><use xlink:href="/assets/icons.svg#twitter"></use></svg>
+									<span class="label">Twitter</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialTwitch) { %>
+							<li>
+								<a class="n04" href="<%= siteInfo.socialTwitch %>">
+									<svg><use xlink:href="/assets/icons.svg#twitch"></use></svg>
+									<span class="label">Twitch</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialInsta) { %>
+							<li>
+								<a class="n05" href="<%= siteInfo.socialInsta %>">
+									<svg><use xlink:href="/assets/icons.svg#instagram"></use></svg>
+									<span class="label">Instagram</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialFb) { %>
+							<li>
+								<a class="n06" href="<%= siteInfo.socialFb %>">
+									<svg><use xlink:href="/assets/icons.svg#facebook"></use></svg>
+									<span class="label">Facebook</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialYouTube) { %>
+							<li>
+								<a class="n07" href="<%= siteInfo.socialYouTube %>">
+									<svg><use xlink:href="/assets/icons.svg#youtube"></use></svg>
+									<span class="label">YouTube</span>
+								</a>
+							</li>
+							<% } %>
+						</ul>
+						<% var footerDate = new Date(); %>
+						<p id="text07">© <%= footerDate.getFullYear(); %>, <%= siteInfo.sitename %>. Made by <a href="https://faxes.zone">FAXES</a>.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<script src="/assets/main.js"></script>
+	</body>
+</html>

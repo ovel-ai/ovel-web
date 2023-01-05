@@ -1,0 +1,342 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<title>Edit Item - <%= siteInfo.sitename %></title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
+		<meta name="description" content="<%= siteInfo.sitedesc %>" />
+		<meta property="og:site_name" content="<%= siteInfo.sitename %>" />
+		<meta property="og:title" content="Edit Item" />
+		<meta property="og:type" content="website" />
+		<meta property="og:description" content="<%= siteInfo.sitedesc %>" />
+		<meta name="twitter:card" content="summary">
+		<meta name="theme-color" content="<%= siteInfo.themecolor %>">
+		<meta property="og:image" content="<%= siteInfo.siteLogo %>">
+		<link href="https://fonts.googleapis.com/css?family=Exo:500,500italic,700,700italic,400,400italic,600,600italic,900,900italic" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="/assets/main.css" />
+		<link rel="icon" href="<%= siteInfo.siteLogo %>" />
+		<style>
+			#icons01 a:hover svg {
+				fill: <%= siteInfo.themecolor %> !important;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="main">
+				<div class="inner">
+					<header id="header">
+						<div id="container01" class="container columns full screen">
+							<div class="wrapper">
+								<div class="inner">
+									<div>
+										<a href="/">
+											<div id="image01" class="image">
+												<img src="<%= siteInfo.siteLogo %>" alt="" />
+											</div>
+										</a>
+									</div>
+									<div>
+										<ul id="buttons03" class="buttons">
+											<% var splittedDetails = siteInfo.header.split("[||[]||]");
+											splittedDetails.forEach(function(element) { 
+												if(element.length > 3) {
+													let thisDetail = element.split("[||]"); %>
+													<li>
+														<a href="<%= thisDetail[1] %>" class="button n01"><%= thisDetail[0] %></a>
+													</li>
+												<% }
+											}); %>
+										</ul>
+									</div>
+									<div>
+										<ul id="buttons01" class="buttons">
+											<% if(discordInfo.loggedIn) { %>
+												<div class="dropdown">
+													<li>
+														<a href="/user/<%= discordInfo.id %>" class="button n01"><svg><use xlink:href="/assets/icons.svg#discord"></use></svg><span class="label"><%= discordInfo.username %>#<%= discordInfo.discriminator %></span></a>
+													</li>
+													<div class="dropdown-content">
+														<% if(siteInfo.giftcardsEnabled) { %><a href="/giftcards">Gift Cards</a> <% } %>
+														<a href="/logout">Logout</a>
+													</div>
+												</div>
+												<li>
+													<a href="/cart" class="button n02"><svg><use xlink:href="/assets/icons.svg#cart"></use></svg><span class="label">Cart <% if(discordInfo.cart.length > 0) { %>(<%= discordInfo.cart.length %>)<% } %></span></a>
+												</li>
+												<% if(discordInfo.permType < 3) { %>
+													<li>
+														<a href="/staff" class="button n03"><svg><use xlink:href="/assets/icons.svg#key"></use></svg><span class="label">Staff</span></a>
+													</li>
+											<%	} 
+											} else { %>
+												<li>
+													<a href="/login" class="button n01"><svg><use xlink:href="/assets/icons.svg#discord"></use></svg><span class="label">Login</span></a>
+												</li>
+											<% } %>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<% if(siteInfo.banner) { %>
+							<div id="container02" class="container default">
+								<div class="wrapper">
+									<div class="inner">
+										<p id="text08">Notification</p>
+										<p id="text10"><%= siteInfo.banner %></p>
+									</div>
+								</div>
+							</div>
+						<% } %>
+					</header>
+					<section id="itemcreate-section">
+						<p id="text16">Admin Panel - Edit Item</p>
+						<ul id="buttons12" class="buttons">
+							<li>
+								<a href="/staff/settings" class="button n01">Site Settings</a>
+							</li><li>
+								<a href="/staff/insights" class="button n02">Insights</a>
+							</li><li>
+								<a href="/staff/store" class="button n03">Store</a>
+							</li><li>
+								<a href="/staff/gallery" class="button n04">Gallery</a>
+							</li><li>
+								<a href="/staff/homepage" class="button n05">Home Page</a>
+							</li><li>
+								<a href="/staff/teampage" class="button n06">Team Page</a>
+							</li><li>
+								<a href="/staff/tospage" class="button n07">ToS Page</a>
+							</li><li>
+								<a href="/staff/partners" class="button n09">Partners</a>
+							</li><li>
+								<a href="/staff/users" class="button n08">User Manager</a>
+							</li><li>
+								<a href="/staff/owneditems" class="button n08">Owned Items</a>
+							</li><li>
+								<a href="/staff/admins" class="button n09">Staff Manager</a>
+							</li>
+						</ul>
+					
+						<script type="text/javascript">
+							function setForm(value) {
+								if(value == '2') {
+									document.getElementById(`form13price`).style = 'display:none;';
+									document.getElementById(`form13reqItem`).style = 'display:none;';
+									document.getElementById(`form13priceLabel`).style = 'display:none;';
+									document.getElementById(`form13reqItemLabel`).style = 'display:none;';
+									document.getElementById(`form13RedirectLabel`).style = 'display:none;';
+									document.getElementById(`form13Redirect`).style = 'display:none;';
+								} else if(value == '3') {
+									document.getElementById(`form13RedirectLabel`).style = 'display:block;';
+									document.getElementById(`form13Redirect`).style = 'display:block;';
+									document.getElementById(`form13price`).style = 'display:none;';
+									document.getElementById(`form13reqItem`).style = 'display:none;';
+									document.getElementById(`form13priceLabel`).style = 'display:none;';
+									document.getElementById(`form13reqItemLabel`).style = 'display:none;';
+								} else {
+									document.getElementById(`form13price`).style = 'display:block;';
+									document.getElementById(`form13reqItem`).style = 'display:block;';
+									document.getElementById(`form13priceLabel`).style = 'display:block;';
+									document.getElementById(`form13reqItemLabel`).style = 'display:block;';
+									document.getElementById(`form13RedirectLabel`).style = 'display:none;';
+									document.getElementById(`form13Redirect`).style = 'display:none;';
+								}
+							}
+						</script>
+
+						<%
+						function converter(val) {
+							if(val) {
+								return 'Enabled'
+							} else {
+								return 'Disabled'
+							}
+						}
+						function converter2(val) {
+							if(val == 1) {
+								return 'Paid'
+							} else if(val == 3) {
+								return 'Redirect Link'
+							} else {
+								return 'Free Download'
+							}
+						}
+						%>
+						<form enctype="multipart/form-data" id="form13" method="post" action="/backend/storeitem/edit/<%= storeItem.id %>" autocomplete="off">
+							<div class="inner">
+								<div class="field">
+									<label for="form13-site-name">Item name:</label>
+									<input type="text" name="title" id="form13-site-name" maxlength="256" value="<%= storeItem.title %>" required />
+								</div>
+								<div class="field">
+									<label for="form13-on-sale">On sale:</label>
+									<select name="onSale" id="form13-on-sale" required>
+										<option value="<%= storeItem.onSale %>">Current: <%= converter(storeItem.onSale) %></option>
+										<option value="true">Yes</option>
+										<option value="false">No</option>
+									</select>
+								</div>
+								<div class="field">
+									<label for="form13-accent-color-hex-color">URL Id (no spaces, or special characters):</label>
+									<p id="text23">This is used in your url. Eg; <code>site.com/view/UrlIdHere</code></p>
+									<input type="text" name="urlId" id="form13-accent-color-hex-color" maxlength="25" value="<%= storeItem.urlId %>" required />
+								</div>
+								<div class="field">
+									<label for="form13-currency-icon">Numercial Position:</label>
+									<input type="text" name="position" id="form13-currency-icon" maxlength="5" value="<%= storeItem.position %>" required />
+								</div>
+								<div class="field">
+									<label for="form13-discord-role">Item type:</label>
+									<select name="itemType" id="form13-discord-role" onchange="setForm(this.value)" required>
+										<option value="<%= storeItem.itemType %>">Current: <%= converter2(storeItem.itemType) %></option>
+										<option value="1">Paid</option>
+										<option value="2">Free Download</option>
+										<option value="3">Redirect</option>
+									</select>
+								</div>
+									<div class="field">
+										<label for="form13-price" id="form13priceLabel">Price:</label>
+										<input type="text" name="price" id="form13price" value="<%= storeItem.price %>" maxlength="20" />
+									</div>
+									<div class="field">
+										<label for="form13reqItem" id="form13reqItemLabel">Required item (optional):</label>
+										<select name="requiredItem" id="form13reqItem">
+											<% if(storeItem.requiredItem) { %>
+												<option value="<%= storeItem.requiredItem %>">Id: <%= storeItem.requiredItem %></option>
+											<% } %>
+											<option value="">-- NONE --</option>
+											<% if(storeItems) {
+												storeItems.forEach(function(element, i) { 
+													if(element.itemType == 1) { %>
+														<option value="<%= element.id %>"><%= element.title %></option>
+												<% 	}
+												}); 
+											} %>
+										</select>
+									</div>
+									<div class="field">
+										<label for="form13-demo" style="display:none;" id='form13RedirectLabel'>Redirect link:</label>
+										<input type="text" style="display:none;" name="redirectLink" id='form13Redirect' placeholder="https://faxes.zone/docs"/>
+									</div>
+									
+								<div class="field">
+									<label for="form13-demo">Demo external link (optional):</label>
+									<input type="text" name="demoLink" id="form13-demo" value="<%= storeItem.demoLink %>" />
+								</div>
+								<div class="field">
+									<label for="form13-discordRole">Discord role id (optional):</label>
+									<input type="text" name="discordRole" id="form13-discordRole" value="<%= storeItem.discordRole %>" />
+								</div>
+
+								<div class="field">
+									<label for="form13-site-description">Item description:</label>
+									<textarea data-gramm_editor="false" name="sitedescription" id="form13-site-description" style="height: 20rem !important;" placeholder="This text box supports markdown...&#10;# Heading One&#10;## Heading Two&#10;### Heading Three&#10;&#10;**Bold text**&#10;*Italic text*&#10;~~Strikethrough~~&#10;&#10;- List one&#10;- List two&#10;&#10;[URL text](URL)&#10;&#10;---&#10;^ Adds horizontal rule&#10;&#10;`Code line`" required><%= storeItem.description %></textarea>
+								</div>
+								<div class="field">
+									<label for="form13-credits">Item credits (optional):</label>
+									<textarea data-gramm_editor="false" name="credits" id="form13-credits" style="height: 20rem !important;" placeholder="This text box supports markdown...&#10;# Heading One&#10;## Heading Two&#10;### Heading Three&#10;&#10;**Bold text**&#10;*Italic text*&#10;~~Strikethrough~~&#10;&#10;- List one&#10;- List two&#10;&#10;[URL text](URL)&#10;&#10;---&#10;^ Adds horizontal rule&#10;&#10;`Code line`"><%= storeItem.credits %></textarea>
+								</div>
+
+								<div class="field">
+									<label for="form13-gallery">Gallery images (comma separated):</label>
+									<textarea data-gramm_editor="false" name="galleryImages" id="form13-gallery" placeholder="mysite.com/image1.png, mysite.com/image2.png, mysite.com/image3.png" required><%= storeItem.galleryImages %></textarea>
+								</div>
+								
+								<script>
+									function showname(element, input) {
+										var name = document.getElementById(input);
+										document.getElementById(element).setAttribute("data-filename", name.files.item(0).name)
+									};
+								</script>
+								<div class="field">
+									<label for="form01-community-logo">Update main feature image:</label>
+									<div class="file" id="inputToUpdate-One" data-placeholder="No file selected..." data-filename="">
+										<input type="file" name="featureImage" id="fileInput-One" onchange="showname(`inputToUpdate-One`, `fileInput-One`)"/>
+									</div>
+								</div>
+
+								<% tags.forEach(function(element, i) { %>
+									<div class="field">
+										<div class="checkbox">
+										<input type="checkbox" name="tag<%= element.name %>" id="tag-<%= element.name %>" value="<%= element.name %>" <% if(storeItem.tags.split(',').includes(element.name)) { %>checked<% } %> />
+										<label for="tag-<%= element.name %>"><span><%= element.name %></span></label>
+										</div>
+									</div>
+								<% }); %>
+
+								<div class="actions">
+									<button type="submit">Update Item</button>
+								</div>
+							</div>
+						</form>
+
+					</section>
+					<footer id="footer">
+						<ul id="icons01" class="icons">
+							<% if(siteInfo.socialEmail) { %>
+							<li>
+								<a class="n01" href="mailto:<%= siteInfo.socialEmail %>">
+									<svg><use xlink:href="/assets/icons.svg#email"></use></svg>
+									<span class="label">Email</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialDiscord) { %>
+							<li>
+								<a class="n02" href="<%= siteInfo.socialDiscord %>">
+									<svg><use xlink:href="/assets/icons.svg#discord"></use></svg>
+									<span class="label">Discord</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialTwitter) { %>
+							<li>
+								<a class="n03" href="<%= siteInfo.socialTwitter %>">
+									<svg><use xlink:href="/assets/icons.svg#twitter"></use></svg>
+									<span class="label">Twitter</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialTwitch) { %>
+							<li>
+								<a class="n04" href="<%= siteInfo.socialTwitch %>">
+									<svg><use xlink:href="/assets/icons.svg#twitch"></use></svg>
+									<span class="label">Twitch</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialInsta) { %>
+							<li>
+								<a class="n05" href="<%= siteInfo.socialInsta %>">
+									<svg><use xlink:href="/assets/icons.svg#instagram"></use></svg>
+									<span class="label">Instagram</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialFb) { %>
+							<li>
+								<a class="n06" href="<%= siteInfo.socialFb %>">
+									<svg><use xlink:href="/assets/icons.svg#facebook"></use></svg>
+									<span class="label">Facebook</span>
+								</a>
+							</li>
+							<% }
+							if(siteInfo.socialYouTube) { %>
+							<li>
+								<a class="n07" href="<%= siteInfo.socialYouTube %>">
+									<svg><use xlink:href="/assets/icons.svg#youtube"></use></svg>
+									<span class="label">YouTube</span>
+								</a>
+							</li>
+							<% } %>
+						</ul>
+						<% var footerDate = new Date(); %>
+						<p id="text07">© <%= footerDate.getFullYear(); %>, <%= siteInfo.sitename %>. Made by <a href="https://faxes.zone">FAXES</a>.</p>
+					</footer>
+				</div>
+			</div>
+		</div>
+		<script src="/assets/main.js"></script>
+	</body>
+</html>

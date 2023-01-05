@@ -1,0 +1,39 @@
+{
+  "name": "faxstore",
+  "version": "1.0.0",
+  "description": "FaxStore - a product created by FAXES (https://faxes.zone)",
+  "main": "index.js",
+  "private": true,
+  "dependencies": {
+    "@sendgrid/mail": "^7.4.2",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "btoa": "^1.2.1",
+    "chart.js": "^2.9.4",
+    "chartjs-node-canvas": "^3.1.0",
+    "discord.js": "^12.5.1",
+    "ejs": "^3.1.5",
+    "ejs-lint": "^1.1.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "express.js": "^1.0.0",
+    "fs": "^0.0.1-security",
+    "html-to-markdown": "^1.0.0",
+    "image-downloader": "^4.0.2",
+    "markdown-it-faxes": "^1.0.6",
+    "multer": "^1.4.2",
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.1",
+    "passport": "^0.4.1",
+    "passport-discord": "^0.1.4",
+    "path": "^0.12.7",
+    "paypal-rest-sdk": "^1.8.1",
+    "request-ip": "^2.1.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "FAXES",
+  "license": "SEE LICENSE IN https://faxes.zone/tos"
+}

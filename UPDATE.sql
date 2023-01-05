@@ -1,0 +1,8 @@
+-- YOU NEED TO ONLY RUN THE BELOW SQL INTO YOUR DATABASE
+-- 
+-- DO NOT IMPORT THE installme.sql FILE!!!
+
+ALTER TABLE users ADD userEmail TEXT;
+
+ALTER TABLE promocodes ADD uses BIGINT;
+ALTER TABLE promocodes ADD maxlimit TEXT;

@@ -1,0 +1,7 @@
+1- Install NodeJS
+
+2- Open CMD Prompt in the Directory and run (npm i)
+
+3- Configure the config.json
+
+4- Type node index
